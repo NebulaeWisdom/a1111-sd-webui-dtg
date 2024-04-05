@@ -110,7 +110,7 @@ class DTGScript(scripts.Script):
                     with gr.Row():
                         seed_num_input = gr.Number(
                             label="Seed for upsampling tags",
-                            minimum=-1,
+                            minimum=-2,
                             maximum=2**31 - 1,
                             step=1,
                             scale=4,
@@ -198,6 +198,8 @@ class DTGScript(scripts.Script):
         aspect_ratio = p.width / p.height
         if seed == -1:
             seed = random.randrange(2**31 - 1)
+        if seed == -2:
+            seed = p.seed
         seed = int(seed)
 
         if torch.cuda.is_available() and isinstance(text_model, torch.nn.Module):
